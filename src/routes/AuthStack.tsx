@@ -8,6 +8,10 @@ import CompleteProfile from '../Screens/AuthScreens/CompleteProfile';
 import Userinfo01 from '../Screens/AuthScreens/Userinfo01';
 import Userinfo02 from '../Screens/AuthScreens/Userinfo02';
 import Userinfo03 from '../Screens/AuthScreens/Userinfo03';
+import PaymentPlan from '../Screens/AuthScreens/PaymentPlan';
+import SignIn from '../Screens/AuthScreens/SignIn';
+import ForgotPassword from '../Screens/AuthScreens/ForgotPassword';
+import ResetPassword from '../Screens/AuthScreens/ResetPassword';
 
 
 
@@ -25,6 +29,10 @@ const AuthStack = () => {
     <Stack.Screen name="Userinfo01" component={Userinfo01} />
     <Stack.Screen name="Userinfo02" component={Userinfo02} />
     <Stack.Screen name="Userinfo03" component={Userinfo03} />
+    <Stack.Screen name="PaymentPlan" component={PaymentPlan} />
+    <Stack.Screen name="SignIn" component={SignIn} />
+    <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+    <Stack.Screen name="ResetPassword" component={ResetPassword} />
     
     
    

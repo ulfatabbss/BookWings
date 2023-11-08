@@ -21,7 +21,7 @@ const GetStarted   = ({navigation}:GenericNavigation) => {
     <Text style={styles.GetStartedbtnTxt}>Get Started</Text>
 
     </TouchableOpacity>
-    <TouchableOpacity style={[styles.GetStartedbtn,{marginTop:RFP(1),backgroundColor:'#e6f5f3'}]}>
+    <TouchableOpacity style={[styles.GetStartedbtn,{marginTop:RFP(1),backgroundColor:'#e6f5f3'}]} onPress={()=>navigation.navigate('SignIn')}>
     <Text style={styles.btnTxt}>I Already have an Account</Text>
 
     </TouchableOpacity>

@@ -118,7 +118,11 @@ import { RF, RFP } from '../../Utilities/Responsive';
         <TouchableOpacity
           style={[styles.button_View,{backgroundColor:otp.length!=4?'gray':'#3F51B5'}]}
           disabled={otp.length!=4}
-          onPress={() => navigation.navigate('CompleteProfile')}>
+          onPress={
+            // () => navigation.navigate('CompleteProfile')
+            () => navigation.navigate('ResetPassword')
+
+}>
           <Text style={styles.btn_txt}>Confirm</Text>
         </TouchableOpacity>
      
