@@ -9,10 +9,10 @@ import { useSelector } from 'react-redux';
 const Stack = createNativeStackNavigator();
 
 const Routes = () => {
-    const { login } = useSelector((state:any)=> state.root);
+    const { login } = useSelector((state:any)=> state.root.user);
   return (
     login?
-    <AuthStack/>
+    <MainStack/>
     :<AuthStack/>
   )
 }

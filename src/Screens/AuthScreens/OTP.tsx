@@ -17,8 +17,11 @@ import {
   import OTPTextView from 'react-native-otp-textinput';
 import { GenericNavigation } from '../../shared/type/interface';
 import { RF, RFP } from '../../Utilities/Responsive';
+import { useSelector } from 'react-redux';
   
   const OTP = ({navigation}:GenericNavigation)=> {
+    const { otpRoute } = useSelector((state:any)=> state.root.user);
+    useEffect(()=>{console.log(otpRoute)},[])
    
     const[otp,setOtp]=useState('');
     const [seconds, setSeconds] = useState(30);
@@ -57,6 +60,10 @@ import { RF, RFP } from '../../Utilities/Responsive';
       }
   
     };
+    const handleOTP=()=>{
+     
+      otpRoute=='SignIn'? navigation.navigate('ResetPassword') :  navigation.navigate('CompleteProfile')  
+     }
     
     return (
       <ScrollView>
@@ -119,9 +126,9 @@ import { RF, RFP } from '../../Utilities/Responsive';
           style={[styles.button_View,{backgroundColor:otp.length!=4?'gray':'#3F51B5'}]}
           disabled={otp.length!=4}
           onPress={
-            // () => navigation.navigate('CompleteProfile')
-            () => navigation.navigate('ResetPassword')
-
+            //() => navigation.navigate('CompleteProfile')
+            // () => navigation.navigate('ResetPassword')
+            handleOTP
 }>
           <Text style={styles.btn_txt}>Confirm</Text>
         </TouchableOpacity>

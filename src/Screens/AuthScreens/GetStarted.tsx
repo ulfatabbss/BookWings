@@ -2,8 +2,22 @@ import { Image, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'reac
 import React from 'react'
 import { RF, RFP } from '../../Utilities/Responsive'
 import { GenericNavigation } from '../../shared/type/interface'
+import { store } from '../../Redux/store'
+import { setOtpRoute } from '../../Redux/Reducers/userReducer'
+import { useDispatch } from 'react-redux'
 
 const GetStarted   = ({navigation}:GenericNavigation) => {
+  const dispatch = useDispatch();
+
+ 
+  const handleSignIn=()=>{
+   dispatch(setOtpRoute('SignIn'))&&
+   navigation.navigate('SignIn')    
+  }
+  const handleSignUp=()=>{
+    dispatch(setOtpRoute('SignUp'))&&
+    navigation.navigate('SignUp')    
+   }
   return (
     <View style={{flex:1,backgroundColor:'#ffff'}}>
      <Image style={{height:RFP(50),width:"100%"}} resizeMode='cover' source={require('../../assets/Images/GetStarted/imageBackground.png')} />
@@ -17,11 +31,11 @@ const GetStarted   = ({navigation}:GenericNavigation) => {
         <Text style={styles.subHeading}>The Number One Best Ebook Reader Application in the Century.!</Text>
 
     </View>
-    <TouchableOpacity style={styles.GetStartedbtn} onPress={()=>navigation.navigate('SignUp')}>
+    <TouchableOpacity style={styles.GetStartedbtn} onPress={handleSignUp}>
     <Text style={styles.GetStartedbtnTxt}>Get Started</Text>
 
     </TouchableOpacity>
-    <TouchableOpacity style={[styles.GetStartedbtn,{marginTop:RFP(1),backgroundColor:'#e6f5f3'}]} onPress={()=>navigation.navigate('SignIn')}>
+    <TouchableOpacity style={[styles.GetStartedbtn,{marginTop:RFP(1),backgroundColor:'#e6f5f3'}]} onPress={handleSignIn}>
     <Text style={styles.btnTxt}>I Already have an Account</Text>
 
     </TouchableOpacity>

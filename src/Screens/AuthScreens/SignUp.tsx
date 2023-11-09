@@ -1,10 +1,13 @@
 import { Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RF, RFP } from '../../Utilities/Responsive'
 import { GenericNavigation } from '../../shared/type/interface';
+import { useSelector } from 'react-redux';
 
 const SignUp = ({navigation}:GenericNavigation) => {
     const [selected, setSelected] = useState<boolean>(false);
+    const { otpRoute } = useSelector((state:any)=> state.root.user);
+   useEffect(()=>{console.log(otpRoute)},[])
     const Checkbtn =()=>{
         if(selected){
             setSelected(false)

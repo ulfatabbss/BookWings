@@ -1,25 +1,26 @@
 import { Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RF, RFP } from '../../Utilities/Responsive'
 import { GenericNavigation } from '../../shared/type/interface';
+import { store } from '../../Redux/store';
+import { setLogin } from '../../Redux/Reducers/userReducer';
+import { useSelector } from 'react-redux';
+
 
 const SignIn = ({navigation}:GenericNavigation) => {
     const [selected, setSelected] = useState<boolean>(false);
+    const { otpRoute } = useSelector((state:any)=> state.root.user);
+    useEffect(()=>{console.log(otpRoute)},[])
     const Checkbtn =()=>{
         if(selected){
             setSelected(false)
 
         }else{setSelected(true)}
-
-        
-
     }
   return (
     <SafeAreaView style={{flex:1,backgroundColor:'#ffff'}}>
     <View style={{flexDirection:'row',width:'90%',alignSelf:'center',justifyContent:'space-between',marginTop:RFP(2)}}>
         <TouchableOpacity onPress={()=>navigation.goBack()}>
-
-   
         <Image style={styles.backbtn} resizeMode='contain' source={require('../../assets/Images/CommonImages/backArrow.png')} />  
            </TouchableOpacity>
         
@@ -55,7 +56,7 @@ const SignIn = ({navigation}:GenericNavigation) => {
 </View>
 
 </View>
-<TouchableOpacity style={styles.SignUpbtn}>
+<TouchableOpacity style={styles.SignUpbtn} onPress={()=>store.dispatch(setLogin(true))}>
     <Text style={[styles.SignUpTxt]}>Sign In</Text>
 
     </TouchableOpacity>

@@ -9,8 +9,7 @@ const CompleteProfile = ({navigation}:GenericNavigation) => {
     <SafeAreaView style={{flex:1,backgroundColor:'#ffff'}}>
          <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
+        style={{ flex: 1 }}>
     <View style={{flexDirection:'row',width:'90%',alignSelf:'center',justifyContent:'space-between',marginTop:RFP(2)}}>
         <TouchableOpacity onPress={()=>navigation.goBack()}>
 
