@@ -27,7 +27,10 @@ const CompleteProfile = ({navigation}:GenericNavigation) => {
 
 
 <View style={styles.FormView}>
-    <Image style={styles.Logo} resizeMode='contain' source={require('../../assets/Images/SignUp/Logo.png')} />
+    <Image style={styles.Logo} resizeMode='contain' source={require('../../assets/Images/CommonImages/Logo.png')} />
+    <TouchableOpacity style={{height:RF(24),width:RF(24),justifyContent:'center',alignItems:'center',left:RF(34),bottom:RF(24)   ,backgroundColor:'#25105b',borderRadius:90}}>
+<Image style={{height:RF(10.5),width:RF(10.5)}} resizeMode='contain' source={require('../../assets/Images/CommonImages/EditPen.png')} />
+   </TouchableOpacity>
 
 
 

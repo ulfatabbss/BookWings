@@ -1,6 +1,7 @@
 import { FlatList, Image, ImageBackground, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { RF, RFP } from '../../Utilities/Responsive'
+import { GenericNavigation } from '../../shared/type/interface'
 
 const ListData=[
   {
@@ -40,7 +41,7 @@ const GenreData=[
   }
 ]
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}:GenericNavigation) => {
   const [isSearch,setIsSearch]=useState<boolean>(true);
 
   const ListView=({item}: { item: { BookImage: any,name:String,Rating:string, } })=>(
@@ -56,7 +57,7 @@ const HomeScreen = () => {
   </ImageBackground>
   <View style={styles.belowcover}>
     <Text style={styles.bookname}>{item.name}</Text>
-    <TouchableOpacity style={styles.Readbtn}>
+    <TouchableOpacity style={styles.Readbtn} onPress={()=>navigation.navigate('EbookDetail')}>
       <Text style={styles.btnTxt}>Read More</Text>
       <Image style={styles.btnPng} resizeMode='contain' source={require('../../assets/Images/Homee/arrow.png')}/>
 
@@ -123,7 +124,7 @@ const HomeScreen = () => {
       <View style={styles.BelowTopTabView}>
         <View style={styles.SubContainer}>
         <Text style={styles.HeadingTxt}>Popular Ebooks</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('ExploreEbook')}>
         <Image style={styles.ArrowImage} resizeMode='contain' source={require('../../assets/Images/Homee/arrow.png')} />
         </TouchableOpacity>
         </View>
@@ -133,7 +134,7 @@ const HomeScreen = () => {
         </View>
         <View style={styles.SubContainer}>
         <Text style={styles.HeadingTxt}>Explore by Genre</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.navigate('ExploreGenre')}>
         <Image style={styles.ArrowImage} resizeMode='contain' source={require('../../assets/Images/Homee/arrow.png')} />
         </TouchableOpacity>
         </View>

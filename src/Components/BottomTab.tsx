@@ -6,6 +6,7 @@ import Setting from '../Screens/MainScreens/Setting';
 import Favorites from '../Screens/MainScreens/Favorites';
 import MyProfile from '../Screens/MainScreens/MyProfile';
 import { RF } from '../Utilities/Responsive';
+import MainStack from '../routes/MainStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -16,6 +17,7 @@ const BottomTab: React.FC= () => {
    
     <Tab.Navigator    activeColor="#3F51B5" inactiveColor='gray' screenOptions={{ tabBarLabel:false,}} 
       barStyle={{ backgroundColor: '#ffff' ,width:'100%',alignSelf:'center',height:RF(78),borderRadius:RF(20),overflow:'hidden',}} >
+      
       <Tab.Screen name="Home" component={HomeScreen} options={{tabBarIcon:({focused})=>(
         <View style={{height:RF(60),width:RF(60),justifyContent:'center',alignItems:'center'}}>
             <Image style={{height:RF(24),width:RF(24),tintColor:focused?"#3F51B5":undefined}} resizeMode='contain' source={require('../assets/Images/BottomTab/home.png')}  />
