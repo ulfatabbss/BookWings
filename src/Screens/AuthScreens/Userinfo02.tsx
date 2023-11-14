@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
   SignUpTxt:{fontSize:RF(14),fontFamily:'Inter-SemiBold',color:'#fff'},
   AgeContainer:{width:'90%',alignSelf:'center',marginTop:RFP(2) },
   AgeSubContainer:{ flexDirection:'row',justifyContent:'space-between',marginTop:RFP(1)},
-  ageTxt:{ fontSize:RF(14),fontFamily:'Inter-Medium',},
+  ageTxt:{ fontSize:RF(14),fontFamily:'Inter-Medium',color:'#000'},
   singleAgeCotainer:{height:RF(40),width:'45%',borderRadius:RF(90),borderWidth:0.5,borderColor:'gray',justifyContent:'center',alignItems:'center'}
 })

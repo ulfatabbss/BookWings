@@ -42,9 +42,9 @@ export default MyProfile
 
 const styles = StyleSheet.create({
   UserProfile:{height:RF(104),width:RF(104),borderRadius:RF(100),},
-  UserNameTxt:{fontSize:RF(16),fontFamily:'Inter-Bold',marginTop:RFP(1)},
+  UserNameTxt:{fontSize:RF(16),fontFamily:'Inter-Bold',marginTop:RFP(1),color:'#000'},
   subContainer:{width:'90%',alignSelf:'center',marginTop:RFP(2),height:RF(54),justifyContent:'space-around'},
-  subHeadingTxt:{fontSize:RF(14),fontFamily:'Inter-Light'},
-  userInfo:{fontSize:RF(14),fontFamily:'Inter-Medium'},
+  subHeadingTxt:{fontSize:RF(14),fontFamily:'Inter-Light',color:'#000'},
+  userInfo:{fontSize:RF(14),fontFamily:'Inter-Medium',color:'#000'},
   Spacing:{height:RFP(0.5),width:'90%',alignSelf:'center',backgroundColor:"#F0F2F3"},
 })

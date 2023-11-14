@@ -27,7 +27,7 @@ interface TopTabProps {
         
         </TouchableOpacity>}
         <Text
-        style={[{fontSize:RF(16),marginLeft:'5%',fontFamily:"Inter-Medium"}]}>{name}
+        style={[{fontSize:RF(16),marginLeft:'5%',fontFamily:"Inter-Medium",color:'#000'}]}>{name}
 
         </Text>
         </View>

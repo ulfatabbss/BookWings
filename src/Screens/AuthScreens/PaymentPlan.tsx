@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     Toptab:{height:RFP(10),justifyContent:'center'},
     MainHeadiing:{fontSize:RF(16),fontFamily:'Inter-SemiBold',marginLeft:RFP(2),color:'#313131'},
     RegularTxt:{fontSize:RF(14),fontFamily:'Inter-Regular',margin:RFP(2),color:'#313131'},
-    MonthTxt:{ fontSize:RF(8),fontFamily:'Inter-SemiBold'},
+    MonthTxt:{ fontSize:RF(8),fontFamily:'Inter-SemiBold',color:'#000'},
     PriceTxt:{fontSize:RF(22),fontFamily:'Inter-SemiBold',marginLeft:RF(15),color:'#3F51B5'},
     SubmitTxt:{fontSize:RF(10),fontFamily:'Inter-SemiBold',color:'#fff'},
     TouchableSubmit:{height:'100%',width:'30%',backgroundColor:'#3F51B5',borderRadius:RF(90),justifyContent:'center',alignItems:'center'},

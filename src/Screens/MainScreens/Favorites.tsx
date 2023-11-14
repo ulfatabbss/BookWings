@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
    FavBtn:{height:RF(25),width:RF(25),borderRadius:30,backgroundColor:'#FFF',marginTop:RF(25),right:RF(3),justifyContent:'center',alignItems:'center'},
    favImg:{height:RF(14),width:RF(16),},
    belowcover:{width:'90%',alignSelf:'center',marginTop:RF(5)},
-   bookname:{fontSize:RF(14),fontFamily:'Inter-Medium'},
+   bookname:{fontSize:RF(14),fontFamily:'Inter-Medium',color:'#000'},
    Readbtn:{height:RF(26),width:RF(93),borderRadius:RF(30),backgroundColor:'#3F51B5',marginTop:RF(10),justifyContent:'center',alignItems:'center',flexDirection:'row'},
    btnTxt:{fontSize:RF(8),fontFamily:'Inter-Medium',color:"#FFF"},
    btnPng:{height:RF(10),width:RF(10),marginLeft:RF(5),tintColor:"#FFF"},

@@ -67,5 +67,5 @@ const styles = StyleSheet.create({
     Container:{width:'100%',marginTop:RFP(2),},
     subContainer:{height:RF(30),width:'90%',alignSelf:'center',flexDirection:'row',marginVertical:RFP(1),alignItems:'center',borderBottomWidth:0.5,borderColor:'gray',},
     selectedImg:{height:RF(20),width:RF(20)},
-    ListTxt:{fontSize:RF(12),fontFamily:'Inter-Regular',marginLeft:RFP(1)}
+    ListTxt:{fontSize:RF(12),fontFamily:'Inter-Regular',marginLeft:RFP(1),color:'#000'}
 })

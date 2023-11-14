@@ -33,6 +33,7 @@ const Setting =  ({navigation}:GenericNavigation) => {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
                     marginLeft: '2%',
+                    color:'#000',
                    
                   },
                 ]}>
@@ -53,7 +54,8 @@ const Setting =  ({navigation}:GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-                    marginLeft: '2%',
+                    marginLeft: '2%'
+                    ,color:'#000'
                    
                   },
                 ]}>
@@ -74,7 +76,8 @@ const Setting =  ({navigation}:GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-                    marginLeft: '2%',
+                    marginLeft: '2%'
+                    ,color:'#000'
                    
                   },
                 ]}>
@@ -95,7 +98,8 @@ const Setting =  ({navigation}:GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-                    marginLeft: '2%',
+                    marginLeft: '2%'
+                    ,color:'#000'
                    
                   },
                 ]}>
@@ -116,7 +120,8 @@ const Setting =  ({navigation}:GenericNavigation) => {
                     {
                       fontSize: RF(14),
                       fontFamily: 'Inter-Medium',
-                      marginLeft: '2%',
+                      marginLeft: '2%'
+                      ,color:'#000'
                     
                     },
                   ]}>
@@ -149,7 +154,8 @@ const Setting =  ({navigation}:GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-                    marginLeft: '2%',
+                    marginLeft: '2%'
+                    ,color:'#000'
                    
                   },
                 ]}>
@@ -170,7 +176,8 @@ const Setting =  ({navigation}:GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-                    marginLeft: '2%',
+                    marginLeft: '2%'
+                    ,color:'#000'
                    
                   },
                 ]}>
@@ -192,7 +199,8 @@ const Setting =  ({navigation}:GenericNavigation) => {
                 style={[
                   {
                     fontFamily: 'Inter-Medium',
-                    fontSize: RF(14),
+                    fontSize: RF(14)
+                    ,color:'#000'
                    
                   },
                 ]}>
@@ -211,7 +219,7 @@ const Setting =  ({navigation}:GenericNavigation) => {
                 style={[
                   {
                     fontSize: RF(14),
-                    fontFamily: 'Inter-Medium',
+                    fontFamily: 'Inter-Medium',color:'#000'
                   
                   },
                 ]}>

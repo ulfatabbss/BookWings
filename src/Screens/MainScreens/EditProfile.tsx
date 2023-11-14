@@ -57,7 +57,7 @@ export default EditProfile
 
 const styles = StyleSheet.create({
     ViewTextInput  :{height:RF(50),width:'90%',alignSelf:'center',borderRadius:90, justifyContent:'center' ,backgroundColor:'#F1F1F1',marginTop:RFP(2)},
-    inputTxt :{fontSize:RF(12),fontFamily:"Inter-Medium",color:'#000',width:'90%',alignSelf:'center'},
+    inputTxt :{fontSize:RF(12),fontFamily:"Inter-Medium",color:'#000',width:'90%',alignSelf:'center',},
     SignUpbtn:{height:RF(48),width:'90%',alignSelf:'center',justifyContent:'center',alignItems:'center',backgroundColor:'#3F51B5',
     borderRadius:RF(90),position:'absolute',bottom:RF(20)},
     SignUpTxt:{fontSize:RF(14),fontFamily:'Inter-SemiBold',color:'#fff'},

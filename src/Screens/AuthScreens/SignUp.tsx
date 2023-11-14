@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     FormView:{width:'90%',alignSelf:'center',marginTop:RFP(4),alignItems:'center'},
     Logo:{height:RF(120),width:RF(120),borderRadius:RF(90)},
     inputView:{width:'100%',height:RF(48),borderRadius:RF(90),backgroundColor:'#f1f1f1',marginTop:RFP(1.5),justifyContent:'space-between',paddingHorizontal:RF(10),flexDirection:'row',},
-    inputTxt:{fontSize:RF(12),fontFamily:'Inter-Medium',width:'80%'},
+    inputTxt:{fontSize:RF(12),fontFamily:'Inter-Medium',width:'80%',color:'#000'},
     hideTxt:{height:RF(20),width:RF(20),alignSelf:'center'},
     belowinputView:{flexDirection:'row',marginTop:RFP(1.5),alignSelf:'flex-start',marginHorizontal:RF(5)},
     checkbox:{height:RF(14),width:RF(14),},

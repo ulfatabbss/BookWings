@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     SubHeading:{fontSize:RF(12),fontFamily:'Inter-Regular',marginHorizontal:RF(20),marginTop:RFP(1),color:'#000'},
     FormView:{width:'90%',alignSelf:'center',marginTop:RFP(2),alignItems:'center'},
     inputView:{width:'100%',height:RF(48),borderRadius:RF(90),backgroundColor:'#f1f1f1',marginTop:RFP(1.5),justifyContent:'space-between',paddingHorizontal:RF(10),flexDirection:'row',},
-    inputTxt:{fontSize:RF(12),fontFamily:'Inter-Medium',width:'80%'},
+    inputTxt:{fontSize:RF(12),fontFamily:'Inter-Medium',width:'80%',color:'#000'},
     hideTxt:{height:RF(20),width:RF(20),alignSelf:'center'},
     SignUpbtn:{height:RF(48),width:'90%',alignSelf:'center',justifyContent:'center',alignItems:'center',backgroundColor:'#3F51B5',
     borderRadius:RF(90),position:'absolute',bottom:RF(20)},
