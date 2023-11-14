@@ -1,27 +1,35 @@
-import { SafeAreaView, StyleSheet, Text, View ,TouchableOpacity,Image, Switch} from 'react-native'
-import React, { useState } from 'react'
-import TopTab from '../../Components/TopTab'
-import { RF, RFP } from '../../Utilities/Responsive'
-import { GenericNavigation } from '../../shared/type/interface'
-import { store } from '../../Redux/store'
-import { setLogin } from '../../Redux/Reducers/userReducer'
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Switch,
+} from 'react-native';
+import React, {useState} from 'react';
+import TopTab from '../../Components/TopTab';
+import {RF, RFP} from '../../Utilities/Responsive';
+import {GenericNavigation} from '../../shared/type/interface';
+import {store} from '../../Redux/Store';
+import {setLogin} from '../../Redux/Reducers/userReducer';
 
-const Setting =  ({navigation}:GenericNavigation) => {
+const Setting = ({navigation}: GenericNavigation) => {
   const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false);
 
   // Function to handle the switch state change
   const handleToggleSwitch = () => {
     // Update the state when the switch is toggled
-    setIsSwitchOn((prev) => !prev);
+    setIsSwitchOn(prev => !prev);
   };
   return (
-  <SafeAreaView style={{flex:1,backgroundColor:'#e9e7ed'}}>
-    <TopTab name={'Setting'} back='1' Edit='false' />
-    <View style={{height:'100%',width:'100%',backgroundColor:'#fff'}}>
-    <View style={styles.V4}>
-    <View style={styles.V6}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#e9e7ed'}}>
+      <TopTab name={'Setting'} back="1" Edit="false" />
+      <View style={{height: '100%', width: '100%', backgroundColor: '#fff'}}>
+        <View style={styles.V4}>
+          <View style={styles.V6}>
             <Image
-              style={[styles.img2,]}
+              style={[styles.img2]}
               resizeMode="contain"
               source={require('../../assets/Images/SettingIcons/password.png')}></Image>
             <TouchableOpacity
@@ -33,17 +41,20 @@ const Setting =  ({navigation}:GenericNavigation) => {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
                     marginLeft: '2%',
+<<<<<<< HEAD
                     color:'#000',
                    
+=======
+>>>>>>> 1217fe9 (first build)
                   },
                 ]}>
-               Password Settings
+                Password Settings
               </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.V6}>
             <Image
-              style={[styles.img2, ]}
+              style={[styles.img2]}
               resizeMode="contain"
               source={require('../../assets/Images/SettingIcons/MyPlan.png')}></Image>
             <TouchableOpacity
@@ -54,18 +65,22 @@ const Setting =  ({navigation}:GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
+<<<<<<< HEAD
                     marginLeft: '2%'
                     ,color:'#000'
                    
+=======
+                    marginLeft: '2%',
+>>>>>>> 1217fe9 (first build)
                   },
                 ]}>
-              My Plans
+                My Plans
               </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.V6}>
             <Image
-              style={[styles.img2, ]}
+              style={[styles.img2]}
               resizeMode="contain"
               source={require('../../assets/Images/SettingIcons/Payment.png')}></Image>
             <TouchableOpacity
@@ -76,9 +91,13 @@ const Setting =  ({navigation}:GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
+<<<<<<< HEAD
                     marginLeft: '2%'
                     ,color:'#000'
                    
+=======
+                    marginLeft: '2%',
+>>>>>>> 1217fe9 (first build)
                   },
                 ]}>
                 Payment Method
@@ -87,7 +106,7 @@ const Setting =  ({navigation}:GenericNavigation) => {
           </View>
           <View style={styles.V6}>
             <Image
-              style={[styles.img2, ]}
+              style={[styles.img2]}
               resizeMode="contain"
               source={require('../../assets/Images/SettingIcons/MyInvoice.png')}></Image>
             <TouchableOpacity
@@ -98,19 +117,23 @@ const Setting =  ({navigation}:GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
+<<<<<<< HEAD
                     marginLeft: '2%'
                     ,color:'#000'
                    
+=======
+                    marginLeft: '2%',
+>>>>>>> 1217fe9 (first build)
                   },
                 ]}>
-               My Invoices
+                My Invoices
               </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.V7}>
             <View style={{flexDirection: 'row'}}>
               <Image
-                style={[styles.img2,]}
+                style={[styles.img2]}
                 resizeMode="contain"
                 source={require('../../assets/Images/SettingIcons/Notification.png')}></Image>
 
@@ -120,9 +143,13 @@ const Setting =  ({navigation}:GenericNavigation) => {
                     {
                       fontSize: RF(14),
                       fontFamily: 'Inter-Medium',
+<<<<<<< HEAD
                       marginLeft: '2%'
                       ,color:'#000'
                     
+=======
+                      marginLeft: '2%',
+>>>>>>> 1217fe9 (first build)
                     },
                   ]}>
                   {' '}
@@ -136,14 +163,14 @@ const Setting =  ({navigation}:GenericNavigation) => {
                 trackColor={{false: '#767577', true: '#C89B28'}}
                 // thumbColor={dark ? 'white' : '#f4f3f4'}
                 ios_backgroundColor="#3e3e3e"
-            onValueChange={handleToggleSwitch} // Call the handleToggleSwitch function on switch change
-            value={isSwitchOn} // Pass the state value to the switch
+                onValueChange={handleToggleSwitch} // Call the handleToggleSwitch function on switch change
+                value={isSwitchOn} // Pass the state value to the switch
               />
             </View>
           </View>
           <View style={styles.V6}>
             <Image
-              style={[styles.img2, ]}
+              style={[styles.img2]}
               resizeMode="contain"
               source={require('../../assets/Images/SettingIcons/Terms.png')}></Image>
             <TouchableOpacity
@@ -154,9 +181,13 @@ const Setting =  ({navigation}:GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
+<<<<<<< HEAD
                     marginLeft: '2%'
                     ,color:'#000'
                    
+=======
+                    marginLeft: '2%',
+>>>>>>> 1217fe9 (first build)
                   },
                 ]}>
                 Terms & conditions
@@ -165,7 +196,7 @@ const Setting =  ({navigation}:GenericNavigation) => {
           </View>
           <View style={styles.V6}>
             <Image
-              style={[styles.img2,]}
+              style={[styles.img2]}
               resizeMode="contain"
               source={require('../../assets/Images/SettingIcons/Policy.png')}></Image>
             <TouchableOpacity
@@ -176,20 +207,23 @@ const Setting =  ({navigation}:GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
+<<<<<<< HEAD
                     marginLeft: '2%'
                     ,color:'#000'
                    
+=======
+                    marginLeft: '2%',
+>>>>>>> 1217fe9 (first build)
                   },
                 ]}>
                 Privacy Policy
               </Text>
             </TouchableOpacity>
           </View>
-          
-         
+
           <View style={styles.V6}>
             <Image
-              style={[styles.img2,]}
+              style={[styles.img2]}
               resizeMode="contain"
               source={require('../../assets/Images/SettingIcons/FAQ.png')}></Image>
             <TouchableOpacity
@@ -199,9 +233,13 @@ const Setting =  ({navigation}:GenericNavigation) => {
                 style={[
                   {
                     fontFamily: 'Inter-Medium',
+<<<<<<< HEAD
                     fontSize: RF(14)
                     ,color:'#000'
                    
+=======
+                    fontSize: RF(14),
+>>>>>>> 1217fe9 (first build)
                   },
                 ]}>
                 FAQ’s
@@ -210,17 +248,22 @@ const Setting =  ({navigation}:GenericNavigation) => {
           </View>
           <View style={styles.V6}>
             <Image
-              style={[styles.img2,]}
+              style={[styles.img2]}
               resizeMode="contain"
               source={require('../../assets/Images/SettingIcons/LogOut.png')}></Image>
-            <TouchableOpacity style={{marginLeft: '2%'}}
-            onPress={()=>store.dispatch(setLogin(false))}>
+            <TouchableOpacity
+              style={{marginLeft: '2%'}}
+              onPress={() => store.dispatch(setLogin(false))}>
               <Text
                 style={[
                   {
                     fontSize: RF(14),
+<<<<<<< HEAD
                     fontFamily: 'Inter-Medium',color:'#000'
                   
+=======
+                    fontFamily: 'Inter-Medium',
+>>>>>>> 1217fe9 (first build)
                   },
                 ]}>
                 Logout
@@ -232,34 +275,30 @@ const Setting =  ({navigation}:GenericNavigation) => {
               style={[styles.img2]}
               resizeMode="contain"
               source={require('../../assets/Images/SettingIcons/DeleteAcc.png')}></Image>
-            <TouchableOpacity style={{marginLeft: '2%'}}
-            onPress={() => navigation.navigate('DeleteAcc')}>
+            <TouchableOpacity
+              style={{marginLeft: '2%'}}
+              onPress={() => navigation.navigate('DeleteAcc')}>
               <Text
                 style={[
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-                  color:"#E00000"
+                    color: '#E00000',
                   },
                 ]}>
-              Delete Account
+                Delete Account
               </Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-   
+    </SafeAreaView>
+  );
+};
 
-   
-
-  </SafeAreaView>
-  )
-}
-
-export default Setting
+export default Setting;
 
 const styles = StyleSheet.create({
-
   img3: {
     height: RF(20),
     width: RF(20),
@@ -270,4 +309,4 @@ const styles = StyleSheet.create({
   V6: {flexDirection: 'row', marginTop: '7%'},
   V7: {flexDirection: 'row', marginTop: '7%', justifyContent: 'space-between'},
   img2: {height: RF(20), width: RF(20)},
-})
+});
