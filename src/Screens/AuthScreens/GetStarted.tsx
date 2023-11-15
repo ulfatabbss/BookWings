@@ -25,8 +25,8 @@ const GetStarted = ({navigation}: GenericNavigation) => {
   return (
     <View style={{flex: 1, backgroundColor: '#ffff'}}>
       <Image
-        style={{height: RFP(50), width: '100%'}}
-        resizeMode="cover"
+        style={{height: RFP(65), width: '100%'}}
+        // resizeMode="cover"
         source={require('../../assets/Images/GetStarted/imageBackground.png')}
       />
       <View

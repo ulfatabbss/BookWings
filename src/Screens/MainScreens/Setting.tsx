@@ -41,11 +41,7 @@ const Setting = ({navigation}: GenericNavigation) => {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
                     marginLeft: '2%',
-<<<<<<< HEAD
-                    color:'#000',
-                   
-=======
->>>>>>> 1217fe9 (first build)
+                    color: 'black',
                   },
                 ]}>
                 Password Settings
@@ -65,13 +61,8 @@ const Setting = ({navigation}: GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-<<<<<<< HEAD
-                    marginLeft: '2%'
-                    ,color:'#000'
-                   
-=======
                     marginLeft: '2%',
->>>>>>> 1217fe9 (first build)
+                    color: 'black',
                   },
                 ]}>
                 My Plans
@@ -91,13 +82,8 @@ const Setting = ({navigation}: GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-<<<<<<< HEAD
-                    marginLeft: '2%'
-                    ,color:'#000'
-                   
-=======
                     marginLeft: '2%',
->>>>>>> 1217fe9 (first build)
+                    color: 'black',
                   },
                 ]}>
                 Payment Method
@@ -117,13 +103,8 @@ const Setting = ({navigation}: GenericNavigation) => {
                   {
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-<<<<<<< HEAD
-                    marginLeft: '2%'
-                    ,color:'#000'
-                   
-=======
                     marginLeft: '2%',
->>>>>>> 1217fe9 (first build)
+                    color: 'black',
                   },
                 ]}>
                 My Invoices
@@ -141,18 +122,12 @@ const Setting = ({navigation}: GenericNavigation) => {
                 <Text
                   style={[
                     {
+                      color: 'black',
                       fontSize: RF(14),
                       fontFamily: 'Inter-Medium',
-<<<<<<< HEAD
-                      marginLeft: '2%'
-                      ,color:'#000'
-                    
-=======
                       marginLeft: '2%',
->>>>>>> 1217fe9 (first build)
                     },
                   ]}>
-                  {' '}
                   Notification
                 </Text>
               </TouchableOpacity>
@@ -179,15 +154,10 @@ const Setting = ({navigation}: GenericNavigation) => {
               <Text
                 style={[
                   {
+                    color: 'black',
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-<<<<<<< HEAD
-                    marginLeft: '2%'
-                    ,color:'#000'
-                   
-=======
                     marginLeft: '2%',
->>>>>>> 1217fe9 (first build)
                   },
                 ]}>
                 Terms & conditions
@@ -205,15 +175,10 @@ const Setting = ({navigation}: GenericNavigation) => {
               <Text
                 style={[
                   {
+                    color: 'black',
                     fontSize: RF(14),
                     fontFamily: 'Inter-Medium',
-<<<<<<< HEAD
-                    marginLeft: '2%'
-                    ,color:'#000'
-                   
-=======
                     marginLeft: '2%',
->>>>>>> 1217fe9 (first build)
                   },
                 ]}>
                 Privacy Policy
@@ -232,14 +197,9 @@ const Setting = ({navigation}: GenericNavigation) => {
               <Text
                 style={[
                   {
+                    color: 'black',
                     fontFamily: 'Inter-Medium',
-<<<<<<< HEAD
-                    fontSize: RF(14)
-                    ,color:'#000'
-                   
-=======
                     fontSize: RF(14),
->>>>>>> 1217fe9 (first build)
                   },
                 ]}>
                 FAQ’s
@@ -257,13 +217,9 @@ const Setting = ({navigation}: GenericNavigation) => {
               <Text
                 style={[
                   {
+                    color: 'black',
                     fontSize: RF(14),
-<<<<<<< HEAD
-                    fontFamily: 'Inter-Medium',color:'#000'
-                  
-=======
                     fontFamily: 'Inter-Medium',
->>>>>>> 1217fe9 (first build)
                   },
                 ]}>
                 Logout
