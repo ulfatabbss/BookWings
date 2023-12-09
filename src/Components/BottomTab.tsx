@@ -18,7 +18,7 @@ const BottomTab: React.FC = () => {
         tabBarShowLabel: false,
         // tabBarActiveTintColor: Primary,
         tabBarStyle: {
-          height: RF(70),
+          height: RF(60),
           width: '100%',
           alignSelf: 'center',
           justifyContent: 'center',

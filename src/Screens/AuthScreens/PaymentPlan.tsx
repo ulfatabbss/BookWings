@@ -9,10 +9,13 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
+  Image,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {RF, RFP} from '../../Utilities/Responsive';
-import CustomModal from '../../Components/CustomModal';
+import {GenericNavigation} from '../../shared/type/interface';
+import {store} from '../../Redux/Store';
+import {setLogin} from '../../Redux/Reducers/userReducer';
 
 const PaymentData = [
   {
@@ -53,8 +56,16 @@ const PaymentData = [
   },
 ];
 
-const PaymentPlan = () => {
-  const [modalvisible, setModalvisible] = useState<Boolean>(false);
+const PaymentPlan = ({navigation}: GenericNavigation) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setModalVisible(false);
+      store.dispatch(setLogin(true));
+    }, 3000); // Adjust the timeout duration (in milliseconds) as needed
+
+    return () => clearTimeout(timer);
+  }, [modalVisible]);
   const PaymentFlatList = ({
     item,
   }: {
@@ -99,16 +110,42 @@ const PaymentPlan = () => {
             styles.TouchableSubmit,
             {width: item.Price == '0' ? '100%' : '30%'},
           ]}
-          onPress={() => handleSubmit()}>
+          onPress={() => setModalVisible(!modalVisible)}>
           <Text style={styles.SubmitTxt}>Submit</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    store.dispatch(setLogin(true));
+  };
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#e9e7ed'}}>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Image
+              resizeMode="contain"
+              style={{height: '60%', width: '100%'}}
+              source={require('../../assets/signupmobile.png')}
+            />
+            <Text
+              style={{
+                fontSize: RF(22),
+                color: '#3F51B5',
+                marginVertical: RF(10),
+              }}>
+              Submit Successful!
+            </Text>
+            <Text
+              style={{color: 'black', textAlign: 'center', fontSize: RF(14)}}>
+              Your request has been sent to the admin. Once it's approved,
+              you'll gain access to the app.
+            </Text>
+          </View>
+        </View>
+      </Modal>
       <View style={styles.Toptab}>
         <Text style={styles.MainHeadiing}>Pricing Plan</Text>
       </View>
@@ -193,5 +230,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#e6f5f3',
     margin: RF(10),
     width: RF(60),
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  },
+  modalView: {
+    height: '60%',
+    width: '90%',
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
   },
 });

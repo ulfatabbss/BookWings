@@ -55,7 +55,7 @@ const GetStarted = ({navigation}: GenericNavigation) => {
         onPress={handleSignIn}>
         <Text style={styles.btnTxt}>I Already have an Account</Text>
       </TouchableOpacity>
-      <View style={styles.socialViewbtn}>
+      {/* <View style={styles.socialViewbtn}>
         <TouchableOpacity style={styles.socialbtn}>
           <Image
             style={styles.socialbtnImg}
@@ -70,7 +70,7 @@ const GetStarted = ({navigation}: GenericNavigation) => {
             source={require('../../assets/Images/GetStarted/apple.png')}
           />
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };

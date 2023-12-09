@@ -1,143 +1,92 @@
+import React, {useState} from 'react';
 import {
   Image,
   SafeAreaView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
 import {RF, RFP} from '../../Utilities/Responsive';
 import {GenericNavigation} from '../../shared/type/interface';
 
+const ageOptions = [
+  '14-17',
+  '18-24',
+  '25-29',
+  '30-34',
+  '35-39',
+  '40-44',
+  '45-49',
+  '50+',
+];
+
 const Userinfo02 = ({navigation}: GenericNavigation) => {
   const [optionSelect, setOptionSelect] = useState<string>('14-17');
+
+  const {
+    backArrowView,
+    backbtn,
+    fill,
+    MainHeading,
+    SubHeading,
+    SignUpbtn,
+    SignUpTxt,
+    AgeContainer,
+    AgeSubContainer,
+    ageTxt,
+    singleAgeContainer,
+  } = styles;
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ffff'}}>
-      <View style={styles.backArrowView}>
+      <View style={backArrowView}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
-            style={styles.backbtn}
+            style={backbtn}
             resizeMode="contain"
             source={require('../../assets/Images/CommonImages/backArrow.png')}
           />
         </TouchableOpacity>
         <Image
-          style={styles.fill}
+          style={fill}
           resizeMode="contain"
           source={require('../../assets/Images/Userinfo02/slider.png')}
         />
       </View>
 
-      <Text style={styles.MainHeading}>Choose your Age!</Text>
-      <Text style={styles.SubHeading}>Select Gender for better content.</Text>
-      <View style={styles.AgeContainer}>
-        <View style={styles.AgeSubContainer}>
-          <TouchableOpacity
-            style={[
-              styles.singleAgeCotainer,
-              {
-                backgroundColor:
-                  optionSelect == '14-17' ? '#3F51B5' : undefined,
-              },
-            ]}
-            onPress={() => setOptionSelect('14-17')}>
-            <Text style={styles.ageTxt}>14 - 17</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.singleAgeCotainer,
-              {
-                backgroundColor:
-                  optionSelect == '18-24' ? '#3F51B5' : undefined,
-              },
-            ]}
-            onPress={() => setOptionSelect('18-24')}>
-            <Text style={styles.ageTxt}>18 - 24</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.AgeSubContainer}>
-          <TouchableOpacity
-            style={[
-              styles.singleAgeCotainer,
-              {
-                backgroundColor:
-                  optionSelect == '25-29' ? '#3F51B5' : undefined,
-              },
-            ]}
-            onPress={() => setOptionSelect('25-29')}>
-            <Text style={styles.ageTxt}>25 - 29</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.singleAgeCotainer,
-              {
-                backgroundColor:
-                  optionSelect == '30-34' ? '#3F51B5' : undefined,
-              },
-            ]}
-            onPress={() => setOptionSelect('30-34')}>
-            <Text style={styles.ageTxt}>30 - 34</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.AgeSubContainer}>
-          <TouchableOpacity
-            style={[
-              styles.singleAgeCotainer,
-              {
-                backgroundColor:
-                  optionSelect == '35-39' ? '#3F51B5' : undefined,
-              },
-            ]}
-            onPress={() => setOptionSelect('35-39')}>
-            <Text style={styles.ageTxt}>35 - 39</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.singleAgeCotainer,
-              {
-                backgroundColor:
-                  optionSelect == '40-44' ? '#3F51B5' : undefined,
-              },
-            ]}
-            onPress={() => setOptionSelect('40-44')}>
-            <Text style={styles.ageTxt}>40 - 44</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.AgeSubContainer}>
-          <TouchableOpacity
-            style={[
-              styles.singleAgeCotainer,
-              {
-                backgroundColor:
-                  optionSelect == '45-49' ? '#3F51B5' : undefined,
-              },
-            ]}
-            onPress={() => setOptionSelect('45-49')}>
-            <Text
+      <Text style={MainHeading}>Choose your Age!</Text>
+      <Text style={SubHeading}>Select Gender for better content.</Text>
+      <View style={AgeContainer}>
+        <View style={AgeSubContainer}>
+          {ageOptions.map((ageOption, index) => (
+            <TouchableOpacity
+              key={ageOption}
               style={[
-                styles.ageTxt,
-                {color: optionSelect == '45-49' ? 'white' : 'black'},
-              ]}>
-              45 - 49
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.singleAgeCotainer,
-              {backgroundColor: optionSelect == '50+' ? '#3F51B5' : undefined},
-            ]}
-            onPress={() => setOptionSelect('50+')}>
-            <Text style={styles.ageTxt}>{'> 50'}</Text>
-          </TouchableOpacity>
+                singleAgeContainer,
+                {
+                  backgroundColor:
+                    optionSelect === ageOption ? '#3F51B5' : undefined,
+                  marginRight: index % 2 === 0 ? RFP(2) : 0, // Add margin to every second item
+                },
+              ]}
+              onPress={() => setOptionSelect(ageOption)}>
+              <Text
+                style={[
+                  ageTxt,
+                  {color: optionSelect === ageOption ? 'white' : 'black'},
+                ]}>
+                {ageOption}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
 
       <TouchableOpacity
-        style={styles.SignUpbtn}
+        style={SignUpbtn}
         onPress={() => navigation.navigate('Userinfo03')}>
-        <Text style={styles.SignUpTxt}>Continue</Text>
+        <Text style={SignUpTxt}>Continue</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -184,11 +133,12 @@ const styles = StyleSheet.create({
   AgeContainer: {width: '90%', alignSelf: 'center', marginTop: RFP(2)},
   AgeSubContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginTop: RFP(1),
   },
   ageTxt: {fontSize: RF(14), fontFamily: 'Inter-Medium', color: '#000'},
-  singleAgeCotainer: {
+  singleAgeContainer: {
     height: RF(40),
     width: '45%',
     borderRadius: RF(90),
@@ -196,5 +146,6 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: RF(10),
   },
 });
