@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Alert,
   Image,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { RF, RFP } from '../../Utilities/Responsive';
-import { useSelector } from 'react-redux';
-import { Formik } from 'formik';
+import {RF, RFP} from '../../Utilities/Responsive';
+import {useSelector} from 'react-redux';
+import {Formik} from 'formik';
 import * as yup from 'yup';
-import { Register } from '../../services/AuthServices';
-import { store } from '../../Redux/Store';
-import { setLogin } from '../../Redux/Reducers/userReducer';
+import {Register} from '../../services/AuthServices';
+import {store} from '../../Redux/Store';
+import {setLogin} from '../../Redux/Reducers/userReducer';
 
 const validationSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -30,9 +31,9 @@ const validationSchema = yup.object().shape({
     .required('Confirm Password is required'),
 });
 
-const SignUp = ({ navigation }) => {
+const SignUp = ({navigation}) => {
   const [selected, setSelected] = useState(false);
-  const { otpRoute } = useSelector((state) => state.root.user);
+  const {otpRoute} = useSelector(state => state.root.user);
 
   useEffect(() => {
     console.log(otpRoute);
@@ -42,37 +43,35 @@ const SignUp = ({ navigation }) => {
     setSelected(prevSelected => !prevSelected);
   };
 
-  const handleSignUp = async (values) => {
-    navigation.navigate('OTP')
-    // try {
-    //   console.log(values);
-    //   const obj = {
-    //     name: values.name,
-    //     email: values.email,
-    //     password: values.password,
-    //     c_password: values.confirmPassword
-    //   };
-    //   const response = await Register(obj);
-    //   console.log(response.data);
-    //   if (response.status == 200) {
-    //     // store.dispatch(setLogin(true))
-    //   }
-    // } catch (error) {
-    //   if (error.message === 'Network Error') {
-    //     Alert.alert('⚠️ Check your internet connection and try again .....!');
-    //   } else {
-    //     Alert.alert('⚠️ An error occurred. Please try again later.');
-    //   }
-
-    // } finally {
-    //   //   setIsLoading(false);
-    // }
+  const handleSignUp = async values => {
+    try {
+      console.log(values);
+      const obj = {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        c_password: values.confirmPassword,
+      };
+      const response = await Register(obj);
+      console.log(response.data.success.code);
+      if (response.status == 200) {
+        navigation.navigate('OTP', {code: response.data.success.code});
+      }
+    } catch (error) {
+      if (error.message === 'Network Error') {
+        Alert.alert('⚠️ Check your internet connection and try again .....!');
+      } else {
+        Alert.alert('⚠️ An error occurred. Please try again later.');
+      }
+    } finally {
+      //   setIsLoading(false);
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <Formik
-        initialValues={{ email: '', password: '', confirmPassword: '', name: '' }}
+        initialValues={{email: '', password: '', confirmPassword: '', name: ''}}
         validationSchema={validationSchema}
         onSubmit={handleSignUp}>
         {({
@@ -185,7 +184,7 @@ const SignUp = ({ navigation }) => {
 export default SignUp;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#ffff' },
+  container: {flex: 1, backgroundColor: '#ffff'},
   header: {
     flexDirection: 'row',
     width: '90%',
@@ -193,8 +192,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: RFP(2),
   },
-  backbtn: { height: RF(22), width: RF(22) },
-  fill: { width: '90%', height: RF(22) },
+  backbtn: {height: RF(22), width: RF(22)},
+  fill: {width: '90%', height: RF(22)},
   mainHeading: {
     fontSize: RF(16),
     fontFamily: 'Inter-SemiBold',
@@ -238,14 +237,14 @@ const styles = StyleSheet.create({
     width: '80%',
     color: '#000',
   },
-  hideTxt: { height: RF(20), width: RF(20), alignSelf: 'center' },
+  hideTxt: {height: RF(20), width: RF(20), alignSelf: 'center'},
   belowinputView: {
     flexDirection: 'row',
     marginTop: RFP(1.5),
     alignSelf: 'flex-start',
     marginHorizontal: RF(5),
   },
-  checkbox: { height: RF(14), width: RF(14) },
+  checkbox: {height: RF(14), width: RF(14)},
   checkbtnTxt: {
     fontSize: RF(10),
     fontFamily: 'Inter-Regular',
@@ -261,7 +260,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3F51B5',
     borderRadius: RF(90),
     position: 'absolute',
-    bottom: RF(20),
+    bottom: RF(10),
   },
   errorText: {
     fontSize: RF(10),
@@ -270,5 +269,5 @@ const styles = StyleSheet.create({
     marginTop: RFP(1),
     alignSelf: 'flex-start',
   },
-  signUpTxt: { fontSize: RF(14), fontFamily: 'Inter-SemiBold', color: '#fff' },
+  signUpTxt: {fontSize: RF(14), fontFamily: 'Inter-SemiBold', color: '#fff'},
 });

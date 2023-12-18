@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   Image,
   ImageBackground,
@@ -10,9 +11,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {RF, RFP} from '../../Utilities/Responsive';
-import {GenericNavigation} from '../../shared/type/interface';
+import {Get_All_Books} from '../../services/AuthServices';
+import {useSelector} from 'react-redux';
 
 const ListData = [
   {
@@ -52,14 +54,35 @@ const GenreData = [
   },
 ];
 
-const HomeScreen = ({navigation}: GenericNavigation) => {
-  const [isSearch, setIsSearch] = useState<boolean>(true);
+const HomeScreen = ({navigation}) => {
+  const [isSearch, setIsSearch] = useState(true);
+  const {userToken} = useSelector(state => state.root.user);
+  const [bookData, setBookData] = useState([]);
 
-  const ListView = ({
-    item,
-  }: {
-    item: {BookImage: any; name: String; Rating: string};
-  }) => (
+  useEffect(() => {
+    handleBookData();
+  }, []);
+
+  const handleBookData = async () => {
+    try {
+      const response = await Get_All_Books(userToken);
+
+      if (response.status == 200) {
+        console.log(response.data.books);
+        setBookData(response.data.books);
+        // navigation.navigate('OTP', { code: response.data.success.code })
+      }
+    } catch (error) {
+      if (error.message === 'Network Error') {
+        Alert.alert('⚠️ Check your internet connection and try again .....!');
+      } else {
+        Alert.alert('⚠️ An error occurred. Please try again later.');
+      }
+    } finally {
+      //   setIsLoading(false);
+    }
+  };
+  const ListView = ({item}) => (
     <View
       style={{
         height: RF(315),
@@ -70,7 +93,7 @@ const HomeScreen = ({navigation}: GenericNavigation) => {
       <ImageBackground
         style={styles.bookCover}
         resizeMode="cover"
-        source={item.BookImage}>
+        source={{uri: item.image}}>
         <ImageBackground
           style={styles.RatingImage}
           resizeMode="contain"
@@ -94,7 +117,7 @@ const HomeScreen = ({navigation}: GenericNavigation) => {
         <Text style={styles.bookname}>{item.name}</Text>
         <TouchableOpacity
           style={styles.Readbtn}
-          onPress={() => navigation.navigate('EbookDetail')}>
+          onPress={() => navigation.navigate('EbookDetail', {data: item})}>
           <Text style={styles.btnTxt}>Read More</Text>
           <Image
             style={styles.btnPng}
@@ -105,7 +128,7 @@ const HomeScreen = ({navigation}: GenericNavigation) => {
       </View>
     </View>
   );
-  const GenreListView = ({item}: {item: {image: any; txt: String}}) => (
+  const GenreListView = ({item}) => (
     <ImageBackground
       style={{
         height: RF(83),
@@ -203,7 +226,7 @@ const HomeScreen = ({navigation}: GenericNavigation) => {
               horizontal
               showsHorizontalScrollIndicator={false}
               renderItem={ListView}
-              data={ListData}
+              data={bookData}
             />
           </View>
           <View style={styles.SubContainer}>
@@ -241,7 +264,7 @@ const HomeScreen = ({navigation}: GenericNavigation) => {
               horizontal
               showsHorizontalScrollIndicator={false}
               renderItem={ListView}
-              data={ListData}
+              data={bookData}
             />
           </View>
         </View>

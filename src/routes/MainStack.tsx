@@ -21,6 +21,7 @@ import ExploreEbook from '../Screens/MainScreens/ExploreEbook';
 import ExploreGenre from '../Screens/MainScreens/ExploreGenre';
 import EditProfile from '../Screens/MainScreens/EditProfile';
 import EbookDetail from '../Screens/MainScreens/EbookDetail';
+import ReadBook from '../Screens/MainScreens/ReadBook';
 
 const Stack = createNativeStackNavigator();
 const MainStack = () => {
@@ -45,6 +46,7 @@ const MainStack = () => {
       <Stack.Screen name="ExploreGenre" component={ExploreGenre} />
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="EbookDetail" component={EbookDetail} />
+      <Stack.Screen name="ReadBook" component={ReadBook} />
     </Stack.Navigator>
   );
 };

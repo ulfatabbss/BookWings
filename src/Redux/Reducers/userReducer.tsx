@@ -1,8 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState: any = {
- login:false,
- otpRoute:'',
+  login: false,
+  otpRoute: '',
+  userToken: false,
 };
 
 export const userReducer = createSlice({
@@ -14,11 +15,13 @@ export const userReducer = createSlice({
     },
     setOtpRoute: (state, action) => {
       state.otpRoute = action.payload;
-    }
+    },
+    setUserToken: (state, action) => {
+      state.userToken = action.payload;
+    },
   },
-  
 });
 
-export const {setLogin,setOtpRoute} = userReducer.actions;
+export const {setLogin, setOtpRoute, setUserToken} = userReducer.actions;
 
 export default userReducer.reducer;

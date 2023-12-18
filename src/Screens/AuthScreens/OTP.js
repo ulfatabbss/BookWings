@@ -17,7 +17,8 @@ import { RF, RFP } from '../../Utilities/Responsive';
 import { useSelector } from 'react-redux';
 import { Account_Verification } from '../../services/AuthServices';
 
-const OTP = ({ navigation }) => {
+const OTP = ({ navigation, route }) => {
+  const { code } = route.params;
   const { otpRoute } = useSelector((state) => state.root.user);
   const [modalVisible, setModalVisible] = useState(false);
   const [otp, setOtp] = useState('');
@@ -49,7 +50,7 @@ const OTP = ({ navigation }) => {
   const handleOTP = async () => {
 
     try {
-      const response = await Account_Verification(otp);
+      const response = await Account_Verification(code);
       console.log(response.data);
       if (response.status == 200) {
         navigation.navigate('CompleteProfile');
@@ -64,30 +65,6 @@ const OTP = ({ navigation }) => {
     } finally {
       //   setIsLoading(false);
     }
-
-    // let config = {
-    //   method: 'get',
-    //   maxBodyLength: Infinity,
-    //   url: `http://mbapp.mediasols.xyz/api/account/verify/${otp}`,
-    //   headers: {},
-    // };
-    // axios
-    //   .request(config)
-    //   .then(response => {
-    //     setModalVisible(!modalVisible);
-    //     const timer = setTimeout(() => {
-    //       setModalVisible(false);
-    //       otpRoute == 'SignIn'
-    //         ? navigation.navigate('ResetPassword')
-    //         : navigation.navigate('CompleteProfile');
-    //     }, 3000); // Adjust the timeout duration (in milliseconds) as needed
-
-    //     return () => clearTimeout(timer);
-    //     console.log(JSON.stringify(response.data));
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
   };
 
   return (

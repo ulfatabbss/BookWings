@@ -10,12 +10,15 @@ import {
   TextInput,
   Modal,
   Image,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {RF, RFP} from '../../Utilities/Responsive';
 import {GenericNavigation} from '../../shared/type/interface';
 import {store} from '../../Redux/Store';
 import {setLogin} from '../../Redux/Reducers/userReducer';
+import {Get_All_Plans} from '../../services/AuthServices';
+import {useSelector} from 'react-redux';
 
 const PaymentData = [
   {
@@ -58,10 +61,30 @@ const PaymentData = [
 
 const PaymentPlan = ({navigation}: GenericNavigation) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const {userToken} = useSelector((state: any) => state.root.user);
+
   useEffect(() => {
+    console.log(userToken, 'yxeygyugeyueuge');
+
+    const handlePlans = async (values: any) => {
+      try {
+        const response = await Get_All_Plans(userToken);
+        console.log(response.data);
+      } catch (error) {
+        if (error.message === 'Network Error') {
+          Alert.alert('⚠️ Check your internet connection and try again .....!');
+        } else {
+          Alert.alert('⚠️ An error occurred. Please try again later.');
+        }
+      } finally {
+        //   setIsLoading(false);
+      }
+    };
+    handlePlans();
     const timer = setTimeout(() => {
       setModalVisible(false);
-      store.dispatch(setLogin(true));
+
+      // store.dispatch(setLogin(true));
     }, 3000); // Adjust the timeout duration (in milliseconds) as needed
 
     return () => clearTimeout(timer);

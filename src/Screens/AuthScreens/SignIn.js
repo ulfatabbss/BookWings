@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {
+  Alert,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -12,8 +13,9 @@ import {
   View,
 } from 'react-native';
 import { RF, RFP } from '../../Utilities/Responsive';
-import { GenericNavigation } from '../../shared/type/interface';
-import { setLogin } from '../../Redux/Reducers/userReducer';
+import { setLogin, setUserToken } from '../../Redux/Reducers/userReducer';
+import { Login } from '../../services/AuthServices';
+import { store } from '../../Redux/Store';
 
 // Constants for colors and images
 const COLORS = {
@@ -39,11 +41,32 @@ const validationSchema = Yup.object().shape({
 
 const SignIn = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { otpRoute } = useSelector((state) => state.root.user);
+  const handleLogin = async (values) => {
+    try {
+      const obj = {
+        email: values.email,
+        password: values.password,
+      };
+      const response = await Login(obj);
+      if (response.status == 200) {
+        const token = response?.data?.success?.token
+        store.dispatch(setUserToken(token))
+        store.dispatch(setLogin(true))
+      }
+    } catch (error) {
+      if (error.message === 'Network Error') {
+        Alert.alert('⚠️ Check your internet connection and try again .....!');
+      } else {
+        Alert.alert('⚠️ An error occurred. Please try again later.');
+      }
 
-  useEffect(() => {
-    console.log(otpRoute);
-  }, []);
+    } finally {
+      //   setIsLoading(false);
+    }
+  };
+  // useEffect(() => {
+  //   console.log(otpRoute);
+  // }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -51,8 +74,8 @@ const SignIn = ({ navigation }) => {
         initialValues={{ email: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={values => {
-          // Handle form submission (dispatch action, etc.)
-          dispatch(setLogin(true));
+          handleLogin(values)
+          // dispatch(setLogin(true));
         }}>
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
           <View style={styles.formView}>
@@ -165,6 +188,7 @@ const styles = StyleSheet.create({
     marginTop: RFP(1.5),
     paddingHorizontal: RF(10),
     flexDirection: 'row',
+    color: 'black'
   },
   belowInputView: {
     width: '100%',
