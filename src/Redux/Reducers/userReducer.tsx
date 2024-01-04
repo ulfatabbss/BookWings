@@ -4,6 +4,7 @@ const initialState: any = {
   login: false,
   otpRoute: '',
   userToken: false,
+  userData: '',
 };
 
 export const userReducer = createSlice({
@@ -19,9 +20,13 @@ export const userReducer = createSlice({
     setUserToken: (state, action) => {
       state.userToken = action.payload;
     },
+    setUserData: (state, action) => {
+      state.userData = action.payload;
+    },
   },
 });
 
-export const {setLogin, setOtpRoute, setUserToken} = userReducer.actions;
+export const {setLogin, setOtpRoute, setUserToken, setUserData} =
+  userReducer.actions;
 
 export default userReducer.reducer;

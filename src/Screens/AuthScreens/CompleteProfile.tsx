@@ -35,8 +35,8 @@ const CompleteProfile = ({navigation}: GenericNavigation) => {
   };
 
   const handleFormSubmit = (values: any) => {
-    console.log(values);
-    navigation.navigate('Userinfo01');
+    // console.log(values);
+    navigation.navigate('Userinfo01', {val: values});
   };
 
   return (
@@ -206,6 +206,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: RFP(4),
     alignItems: 'center',
+    paddingBottom: 20,
   },
   Logo: {height: RF(120), width: RF(120), borderRadius: RF(90)},
   inputView: {
@@ -240,14 +241,15 @@ const styles = StyleSheet.create({
   },
   SignUpbtn: {
     height: RF(48),
-    width: '90%',
+    width: '100%',
+    marginVertical: RF(5),
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#3F51B5',
     borderRadius: RF(90),
-    position: 'absolute',
-    bottom: RF(20),
+    // position: 'absolute',
+    // bottom: RF(20),
   },
   SignUpTxt: {fontSize: RF(14), fontFamily: 'Inter-SemiBold', color: '#fff'},
   errorText: {

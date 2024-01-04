@@ -1,8 +1,10 @@
 import {
   Alert,
+  Dimensions,
   FlatList,
   Image,
   ImageBackground,
+  LogBox,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -13,64 +15,60 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {RF, RFP} from '../../Utilities/Responsive';
-import {Get_All_Books} from '../../services/AuthServices';
+import {
+  GetProfile,
+  Get_All_Books,
+  Get_All_Categories,
+} from '../../services/AuthServices';
 import {useSelector} from 'react-redux';
-
-const ListData = [
-  {
-    BookImage: require('../../assets/Images/Homee/FlatList/bg1.png'),
-    name: 'Finance Basics for young women',
-    Rating: '4.5',
-  },
-  {
-    BookImage: require('../../assets/Images/Homee/FlatList/bg1.png'),
-    name: 'Finance Basics for young women',
-    Rating: '4.5',
-  },
-  {
-    BookImage: require('../../assets/Images/Homee/FlatList/bg1.png'),
-    name: 'Finance Basics for young women',
-    Rating: '4.5',
-  },
-  {
-    BookImage: require('../../assets/Images/Homee/FlatList/bg1.png'),
-    name: 'Finance Basics for young women',
-    Rating: '4.5',
-  },
-  {
-    BookImage: require('../../assets/Images/Homee/FlatList/bg1.png'),
-    name: 'Finance Basics for young women',
-    Rating: '4.5',
-  },
-];
-const GenreData = [
-  {
-    image: require('../../assets/Images/Homee/GenreFlatList/Romance.png'),
-    txt: 'Romance',
-  },
-  {
-    image: require('../../assets/Images/Homee/GenreFlatList/Thriller.png'),
-    txt: 'Thriller',
-  },
-];
-
+import {BallIndicator} from 'react-native-indicators';
+import {setUserData} from '../../Redux/Reducers/userReducer';
+import {store} from '../../Redux/Store';
 const HomeScreen = ({navigation}) => {
   const [isSearch, setIsSearch] = useState(true);
-  const {userToken} = useSelector(state => state.root.user);
+  const {userToken, userData} = useSelector(state => state.root.user);
   const [bookData, setBookData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [genreData, setGenreData] = useState(false);
+  const [recommeded, setRecommeded] = useState([]);
+  const [userRecommeded, setUserRecommeded] = useState([]);
 
   useEffect(() => {
     handleBookData();
   }, []);
 
   const handleBookData = async () => {
+    setLoading(true);
+
     try {
       const response = await Get_All_Books(userToken);
-
-      if (response.status == 200) {
-        console.log(response.data.books);
+      const response1 = await Get_All_Categories(userToken);
+      const response3 = await GetProfile(userToken);
+      if (response.status == 200 && response1.status == 200) {
+        setGenreData(response1.data.categories);
         setBookData(response.data.books);
-        // navigation.navigate('OTP', { code: response.data.success.code })
+        store.dispatch(setUserData(response3?.data.success));
+        const likedCategoriesArray =
+          response3?.data?.success?.liked_categories.split(',');
+        const cleanedLikedCategories = likedCategoriesArray.map(category =>
+          category.replace(/"/g, '').trim(),
+        );
+        setRecommeded(cleanedLikedCategories);
+        const filterBooksByLikedCategories = (books, likedCategories) => {
+          if (!likedCategories || likedCategories.length === 0) {
+            return books;
+          }
+          // Filter books that belong to the liked categories
+          return books.filter(book => {
+            const bookCategory = book.category && book.category.name;
+            return likedCategories.includes(bookCategory);
+          });
+        };
+        const filteredBooks = await filterBooksByLikedCategories(
+          bookData,
+          recommeded,
+        );
+        setUserRecommeded(filteredBooks);
       }
     } catch (error) {
       if (error.message === 'Network Error') {
@@ -79,16 +77,18 @@ const HomeScreen = ({navigation}) => {
         Alert.alert('⚠️ An error occurred. Please try again later.');
       }
     } finally {
-      //   setIsLoading(false);
+      setLoading(false);
     }
   };
+
   const ListView = ({item}) => (
     <View
       style={{
         height: RF(315),
         width: RF(170),
         marginRight: RFP(1),
-        borderRadius: RF(20),
+        borderRadius: RF(10),
+        overflow: 'hidden',
       }}>
       <ImageBackground
         style={styles.bookCover}
@@ -129,27 +129,49 @@ const HomeScreen = ({navigation}) => {
     </View>
   );
   const GenreListView = ({item}) => (
-    <ImageBackground
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ExploreEbook', {data: item?.books})}
       style={{
-        height: RF(83),
-        width: RF(160),
+        height: RF(100),
+        width: Dimensions.get('window').width / 2 - RF(10),
         borderRadius: RF(10),
         marginRight: RF(10),
-        padding: RF(10),
-      }}
-      resizeMode="contain"
-      source={item.image}>
-      <Text
+        overflow: 'hidden',
+        borderWidth: 1,
+      }}>
+      <ImageBackground
         style={{
-          fontSize: RF(16),
-          fontFamily: 'Inter-Medium',
-          color: '#FFF',
-          marginTop: RF(40),
-        }}>
-        {item.txt}
-      </Text>
-    </ImageBackground>
+          height: '100%',
+          width: '100%',
+        }}
+        resizeMode="contain"
+        source={{uri: item.image}}>
+        {/* <View
+          style={{
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            height: '100%',
+            width: '100%',
+            padding: RF(10),
+            // elevation: 10,
+            borderWidth: 1,
+            borderColor: '#e9e7ed',
+          }}>
+          <Text
+            style={{
+              fontSize: RF(16),
+              fontFamily: 'Inter-Medium',
+              color: 'black',
+              marginTop: RF(40),
+            }}>
+            {item.name}
+          </Text>
+        </View> */}
+      </ImageBackground>
+    </TouchableOpacity>
   );
+  if (loading) {
+    return <BallIndicator color={'#3F51B5'} />;
+  }
   return (
     <SafeAreaView style={styles.safeArea}>
       {isSearch ? (
@@ -213,7 +235,9 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.SubContainer}>
             <Text style={styles.HeadingTxt}>Popular Ebooks</Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate('ExploreEbook')}>
+              onPress={() =>
+                navigation.navigate('ExploreEbook', {data: bookData})
+              }>
               <Image
                 style={styles.ArrowImage}
                 resizeMode="contain"
@@ -232,7 +256,9 @@ const HomeScreen = ({navigation}) => {
           <View style={styles.SubContainer}>
             <Text style={styles.HeadingTxt}>Explore by Genre</Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate('ExploreGenre')}>
+              onPress={() =>
+                navigation.navigate('ExploreGenre', {data: genreData})
+              }>
               <Image
                 style={styles.ArrowImage}
                 resizeMode="contain"
@@ -245,13 +271,15 @@ const HomeScreen = ({navigation}) => {
               horizontal
               showsHorizontalScrollIndicator={false}
               renderItem={GenreListView}
-              data={GenreData}
+              data={genreData}
             />
           </View>
           <View style={styles.SubContainer}>
             <Text style={styles.HeadingTxt}>Recommended for you</Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate('EbookDetail')}>
+              onPress={() =>
+                navigation.navigate('ExploreEbook', {data: userRecommeded})
+              }>
               <Image
                 style={styles.ArrowImage}
                 resizeMode="contain"
@@ -264,7 +292,7 @@ const HomeScreen = ({navigation}) => {
               horizontal
               showsHorizontalScrollIndicator={false}
               renderItem={ListView}
-              data={bookData}
+              data={userRecommeded}
             />
           </View>
         </View>

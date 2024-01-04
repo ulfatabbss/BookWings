@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import {RF, RFP} from '../../Utilities/Responsive';
-import {GenericNavigation} from '../../shared/type/interface';
 
 const ageOptions = [
   '14-17',
@@ -21,9 +20,17 @@ const ageOptions = [
   '50+',
 ];
 
-const Userinfo02 = ({navigation}: GenericNavigation) => {
-  const [optionSelect, setOptionSelect] = useState<string>('14-17');
-
+const Userinfo02 = ({navigation, route}) => {
+  const [optionSelect, setOptionSelect] = useState('14-17');
+  const {val} = route?.params;
+  const handleAge = () => {
+    const updatedObject = {
+      ...val,
+      age: optionSelect,
+    };
+    navigation.navigate('Userinfo03', {val: updatedObject});
+    // console.log(updatedObject);
+  };
   const {
     backArrowView,
     backbtn,
@@ -83,9 +90,7 @@ const Userinfo02 = ({navigation}: GenericNavigation) => {
         </View>
       </View>
 
-      <TouchableOpacity
-        style={SignUpbtn}
-        onPress={() => navigation.navigate('Userinfo03')}>
+      <TouchableOpacity style={SignUpbtn} onPress={() => handleAge()}>
         <Text style={SignUpTxt}>Continue</Text>
       </TouchableOpacity>
     </SafeAreaView>

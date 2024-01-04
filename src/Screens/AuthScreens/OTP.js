@@ -10,21 +10,22 @@ import {
   Dimensions,
   Modal,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import OTPTextView from 'react-native-otp-textinput';
-import { GenericNavigation } from '../../shared/type/interface';
-import { RF, RFP } from '../../Utilities/Responsive';
-import { useSelector } from 'react-redux';
-import { Account_Verification } from '../../services/AuthServices';
+import {GenericNavigation} from '../../shared/type/interface';
+import {RF, RFP} from '../../Utilities/Responsive';
+import {useSelector} from 'react-redux';
+import {Account_Verification} from '../../services/AuthServices';
 
-const OTP = ({ navigation, route }) => {
-  const { code } = route.params;
-  const { otpRoute } = useSelector((state) => state.root.user);
+const OTP = ({navigation, route}) => {
+  const {code} = route.params;
+  const {otpRoute} = useSelector(state => state.root.user);
   const [modalVisible, setModalVisible] = useState(false);
   const [otp, setOtp] = useState('');
   const [seconds, setSeconds] = useState(30);
   const [isResendEnabled, setIsResendEnabled] = useState(false);
   useEffect(() => {
+    console.log(code);
     const timer = setInterval(() => {
       if (seconds > 0) {
         setSeconds(seconds - 1);
@@ -41,14 +42,13 @@ const OTP = ({ navigation, route }) => {
     setIsResendEnabled(false); // Disable the button after resending
     setSeconds(30); // Reset the timer
   };
-  const handleTextChange = (text) => {
+  const handleTextChange = text => {
     setOtp(text);
     if (text.length === 4) {
       console.log(otp);
     }
   };
   const handleOTP = async () => {
-
     try {
       const response = await Account_Verification(code);
       console.log(response.data);
@@ -61,7 +61,6 @@ const OTP = ({ navigation, route }) => {
       } else {
         Alert.alert('⚠️ An error occurred. Please try again later.');
       }
-
     } finally {
       //   setIsLoading(false);
     }
@@ -74,7 +73,7 @@ const OTP = ({ navigation, route }) => {
           <View style={styles.modalView}>
             <Image
               resizeMode="contain"
-              style={{ height: '60%', width: '100%' }}
+              style={{height: '60%', width: '100%'}}
               source={require('../../assets/signupmobile.png')}
             />
             <Text
@@ -86,7 +85,7 @@ const OTP = ({ navigation, route }) => {
               Sign Up Successful!
             </Text>
             <Text
-              style={{ color: 'black', textAlign: 'center', fontSize: RF(14) }}>
+              style={{color: 'black', textAlign: 'center', fontSize: RF(14)}}>
               Your Account has been created. Please wait a moment, we are
               preparing for you...
             </Text>
@@ -103,14 +102,14 @@ const OTP = ({ navigation, route }) => {
         </TouchableOpacity>
 
         <Image
-          style={{ height: '40%', width: '90%', alignSelf: 'center' }}
+          style={{height: '40%', width: '90%', alignSelf: 'center'}}
           resizeMode="stretch"
           source={require('../../assets/Images/OTP/OTP.png')}></Image>
         <Text style={[styles.Head_txt]}>Hi there!</Text>
         <Text style={[styles.sub_heading_txt]}>
           Please enter the 4 digit OTP we just sent on Phone Number!
         </Text>
-
+        <Text style={[styles.sub_heading_txt]}>{code}</Text>
         <OTPTextView
           containerStyle={styles.OTP_View}
           textInputStyle={styles.OTP_txt}
@@ -127,24 +126,25 @@ const OTP = ({ navigation, route }) => {
             <Text
               style={[
                 styles.smalltxt,
-                { color: isResendEnabled ? '#000' : 'gray' },
+                {color: isResendEnabled ? '#000' : 'gray'},
               ]}>
               Re-send OTP
             </Text>
           </TouchableOpacity>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={[styles.smalltxt, { marginRight: '2%' }]}>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={[styles.smalltxt, {marginRight: '2%'}]}>
               {'Time: '}
             </Text>
-            <Text style={[styles.smalltxt, { color: '#EAAE23' }]}>{`00:${seconds < 10 ? `0${seconds}` : seconds
-              } sec`}</Text>
+            <Text style={[styles.smalltxt, {color: '#EAAE23'}]}>{`00:${
+              seconds < 10 ? `0${seconds}` : seconds
+            } sec`}</Text>
           </View>
         </View>
 
         <TouchableOpacity
           style={[
             styles.button_View,
-            { backgroundColor: otp.length != 4 ? 'gray' : '#3F51B5' },
+            {backgroundColor: otp.length != 4 ? 'gray' : '#3F51B5'},
           ]}
           disabled={otp.length != 4}
           onPress={handleOTP}>
@@ -158,7 +158,7 @@ const OTP = ({ navigation, route }) => {
 export default OTP;
 
 const styles = StyleSheet.create({
-  smalltxt: { fontSize: RF(11), fontFamily: 'Inter-Medium' },
+  smalltxt: {fontSize: RF(11), fontFamily: 'Inter-Medium'},
   goBack: {
     height: RF(20),
     width: RF(20),
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: RF(20),
   },
-  Head_txt: { fontSize: RF(20), fontFamily: 'Inter-Bold', marginLeft: '5%' },
-  btn_txt: { fontFamily: 'Inter-Bold', fontSize: RF(14), color: 'white' },
+  Head_txt: {fontSize: RF(20), fontFamily: 'Inter-Bold', marginLeft: '5%'},
+  btn_txt: {fontFamily: 'Inter-Bold', fontSize: RF(14), color: 'white'},
   OTP_View: {
     height: RF(50),
     width: '90%',

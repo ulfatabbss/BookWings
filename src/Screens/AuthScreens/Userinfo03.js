@@ -10,8 +10,9 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import {RF, RFP} from '../../Utilities/Responsive';
-import {GenericNavigation} from '../../shared/type/interface';
-
+import {useSelector} from 'react-redux';
+import axios from 'axios';
+import {BallIndicator} from 'react-native-indicators';
 const genreData = [
   {
     genre: 'Romance',
@@ -51,10 +52,53 @@ const genreData = [
   },
 ];
 
-const Userinfo03 = ({navigation}: GenericNavigation) => {
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+const Userinfo03 = ({navigation, route}) => {
+  const [selectedGenres, setSelectedGenres] = useState([]);
+  const {userToken} = useSelector(state => state.root.user);
+  const [loading, setLoading] = useState(false);
 
-  const toggleGenreSelection = (genre: string) => {
+  const {val} = route?.params;
+  const handleCategory = async () => {
+    setLoading(true);
+    const updatedObject = {
+      ...val,
+      categories: selectedGenres,
+    };
+    const FormData = require('form-data');
+    let data = new FormData();
+    data.append('name', updatedObject.name);
+    data.append('phone', updatedObject.number);
+    data.append('dob', updatedObject.date);
+    data.append('lang', updatedObject.language);
+    data.append('country', updatedObject.country);
+    data.append('state', 'punjab');
+    data.append('address', updatedObject.address);
+    data.append('gender', updatedObject.gender);
+    data.append('age_range', updatedObject.age);
+    data.append('liked_categories', updatedObject.categories);
+    data.append('notifications', '1');
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'http://mbapp.mediasols.xyz/api/profile/update',
+      headers: {
+        Authorization: `Bearer ${userToken}`, // Add space after 'Bearer'
+        'Content-Type': 'multipart/form-data', // Add Content-Type header for FormData
+      },
+      data: data,
+    };
+
+    try {
+      const response = await axios.request(config);
+      console.log(JSON.stringify(response.data));
+      if (response.status == 200) {
+        navigation.navigate('PaymentPlan');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const toggleGenreSelection = genre => {
     if (selectedGenres.includes(genre)) {
       // Remove the genre if it's already selected
       setSelectedGenres(
@@ -65,7 +109,7 @@ const Userinfo03 = ({navigation}: GenericNavigation) => {
       setSelectedGenres([...selectedGenres, genre]);
     }
   };
-  const Genre = ({item}: {item: {genre: string}}) => (
+  const Genre = ({item}) => (
     <TouchableOpacity
       style={[
         styles.genreItem,
@@ -87,6 +131,9 @@ const Userinfo03 = ({navigation}: GenericNavigation) => {
     </TouchableOpacity>
   );
 
+  if (loading) {
+    return <BallIndicator color={'#3F51B5'} />;
+  }
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ffff'}}>
       <View style={styles.backArrowView}>
@@ -119,7 +166,7 @@ const Userinfo03 = ({navigation}: GenericNavigation) => {
 
       <TouchableOpacity
         style={styles.SignUpbtn}
-        onPress={() => navigation.navigate('PaymentPlan')}>
+        onPress={() => handleCategory()}>
         <Text style={styles.SignUpTxt}>Continue</Text>
       </TouchableOpacity>
     </SafeAreaView>

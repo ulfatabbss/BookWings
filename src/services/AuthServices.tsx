@@ -41,4 +41,62 @@ const Get_All_Books = (userToken: any) => {
   // Return the request promise
   return HTTP.get(endPoints.get_all_books);
 };
-export {Login, Register, Account_Verification, Get_All_Plans, Get_All_Books};
+const Post_plan = (userToken: any, obj: any) => {
+  const HTTP: AxiosInstance = axios.create({
+    baseURL: 'http://mbapp.mediasols.xyz/',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: userToken ? `Bearer ${userToken}` : '',
+    },
+  });
+
+  // Return the request promise
+  return HTTP.patch(endPoints.postPlan, obj);
+};
+const Get_All_Categories = (userToken: any) => {
+  const HTTP: AxiosInstance = axios.create({
+    baseURL: 'http://mbapp.mediasols.xyz/',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: userToken ? `Bearer ${userToken}` : '',
+    },
+  });
+
+  // Return the request promise
+  return HTTP.get(endPoints.Get_alla_categories);
+};
+const GetProfile = (userToken: any) => {
+  const HTTP: AxiosInstance = axios.create({
+    baseURL: 'http://mbapp.mediasols.xyz/',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: userToken ? `Bearer ${userToken}` : '',
+    },
+  });
+
+  // Return the request promise
+  return HTTP.post(endPoints.get_user_detail);
+};
+const GetInvoices = (userToken: any) => {
+  const HTTP: AxiosInstance = axios.create({
+    baseURL: 'http://mbapp.mediasols.xyz/',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: userToken ? `Bearer ${userToken}` : '',
+    },
+  });
+
+  // Return the request promise
+  return HTTP.get(endPoints.get_invoices);
+};
+export {
+  Login,
+  Register,
+  Account_Verification,
+  Get_All_Plans,
+  Get_All_Books,
+  Post_plan,
+  Get_All_Categories,
+  GetProfile,
+  GetInvoices,
+};

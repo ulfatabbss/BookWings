@@ -16,7 +16,7 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import {Register} from '../../services/AuthServices';
 import {store} from '../../Redux/Store';
-import {setLogin} from '../../Redux/Reducers/userReducer';
+import {setLogin, setUserToken} from '../../Redux/Reducers/userReducer';
 
 const validationSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -45,7 +45,7 @@ const SignUp = ({navigation}) => {
 
   const handleSignUp = async values => {
     try {
-      console.log(values);
+      // console.log(values);
       const obj = {
         name: values.name,
         email: values.email,
@@ -53,9 +53,9 @@ const SignUp = ({navigation}) => {
         c_password: values.confirmPassword,
       };
       const response = await Register(obj);
-      console.log(response.data.success.code);
       if (response.status == 200) {
-        navigation.navigate('OTP', {code: response.data.success.code});
+        navigation.navigate('OTP', {code: response?.data?.success?.code});
+        store.dispatch(setUserToken(response?.data?.success?.token));
       }
     } catch (error) {
       if (error.message === 'Network Error') {
@@ -259,8 +259,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#3F51B5',
     borderRadius: RF(90),
-    position: 'absolute',
-    bottom: RF(10),
+    top: RF(20),
   },
   errorText: {
     fontSize: RF(10),

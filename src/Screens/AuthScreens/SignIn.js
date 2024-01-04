@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Formik } from 'formik';
+import React, {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {
   Alert,
@@ -12,10 +12,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { RF, RFP } from '../../Utilities/Responsive';
-import { setLogin, setUserToken } from '../../Redux/Reducers/userReducer';
-import { Login } from '../../services/AuthServices';
-import { store } from '../../Redux/Store';
+import {RF, RFP} from '../../Utilities/Responsive';
+import {setLogin, setUserToken} from '../../Redux/Reducers/userReducer';
+import {Login} from '../../services/AuthServices';
+import {store} from '../../Redux/Store';
 
 // Constants for colors and images
 const COLORS = {
@@ -39,9 +39,8 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required('Password is required'),
 });
 
-const SignIn = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const handleLogin = async (values) => {
+const SignIn = ({navigation}) => {
+  const handleLogin = async values => {
     try {
       const obj = {
         email: values.email,
@@ -49,9 +48,9 @@ const SignIn = ({ navigation }) => {
       };
       const response = await Login(obj);
       if (response.status == 200) {
-        const token = response?.data?.success?.token
-        store.dispatch(setUserToken(token))
-        store.dispatch(setLogin(true))
+        const token = response?.data?.success?.token;
+        store.dispatch(setUserToken(token));
+        store.dispatch(setLogin(true));
       }
     } catch (error) {
       if (error.message === 'Network Error') {
@@ -59,7 +58,6 @@ const SignIn = ({ navigation }) => {
       } else {
         Alert.alert('⚠️ An error occurred. Please try again later.');
       }
-
     } finally {
       //   setIsLoading(false);
     }
@@ -71,13 +69,13 @@ const SignIn = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{email: '', password: ''}}
         validationSchema={validationSchema}
         onSubmit={values => {
-          handleLogin(values)
+          handleLogin(values);
           // dispatch(setLogin(true));
         }}>
-        {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+        {({handleChange, handleBlur, handleSubmit, values, errors}) => (
           <View style={styles.formView}>
             <Image
               style={styles.logo}
@@ -188,7 +186,7 @@ const styles = StyleSheet.create({
     marginTop: RFP(1.5),
     paddingHorizontal: RF(10),
     flexDirection: 'row',
-    color: 'black'
+    color: 'black',
   },
   belowInputView: {
     width: '100%',

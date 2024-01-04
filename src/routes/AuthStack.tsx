@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import GetStarted from '../Screens/AuthScreens/GetStarted';
 import SignUp from '../Screens/AuthScreens/SignUp';
@@ -20,22 +20,21 @@ const Stack = createNativeStackNavigator();
 const AuthStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-    <Stack.Screen name="GetStarted" component={GetStarted} />
-    <Stack.Screen name="SignUp" component={SignUp} />
-    <Stack.Screen name="OTP" component={OTP} />
-    <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
-    <Stack.Screen name="Userinfo01" component={Userinfo01} />
-    <Stack.Screen name="Userinfo02" component={Userinfo02} />
-    <Stack.Screen name="Userinfo03" component={Userinfo03} />
-    <Stack.Screen name="PaymentPlan" component={PaymentPlan} />
-    <Stack.Screen name="SignIn" component={SignIn} />
-    <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-    <Stack.Screen name="ResetPassword" component={ResetPassword} />
-    <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
-    <Stack.Screen name="AddNewCard" component={AddNewCard} />
-
-  </Stack.Navigator>
-  )
-}
-export default AuthStack
-const styles = StyleSheet.create({})
+      <Stack.Screen name="GetStarted" component={GetStarted} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="OTP" component={OTP} />
+      <Stack.Screen name="CompleteProfile" component={CompleteProfile} />
+      <Stack.Screen name="Userinfo01" component={Userinfo01} />
+      <Stack.Screen name="Userinfo02" component={Userinfo02} />
+      <Stack.Screen name="Userinfo03" component={Userinfo03} />
+      <Stack.Screen name="PaymentPlan" component={PaymentPlan} />
+      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen name="ResetPassword" component={ResetPassword} />
+      <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
+      <Stack.Screen name="AddNewCard" component={AddNewCard} />
+    </Stack.Navigator>
+  );
+};
+export default AuthStack;
+const styles = StyleSheet.create({});

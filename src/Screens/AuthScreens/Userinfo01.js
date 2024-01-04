@@ -7,12 +7,24 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {RF, RFP} from '../../Utilities/Responsive';
 import {GenericNavigation} from '../../shared/type/interface';
 
-const Userinfo01 = ({navigation}: GenericNavigation) => {
-  const [optionSelect, setOptionSelect] = useState<string>('Male');
+const Userinfo01 = ({navigation, route}) => {
+  const [optionSelect, setOptionSelect] = useState('Male');
+  const {val} = route?.params;
+  // useEffect(() => {
+  //   console.log(val);
+  // }, []);
+  const handleGender = () => {
+    const updatedObject = {
+      ...val,
+      gender: optionSelect,
+    };
+    navigation.navigate('Userinfo02', {val: updatedObject});
+    // console.log(updatedObject);
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ffff'}}>
       <View style={styles.backArrowView}>
@@ -64,7 +76,7 @@ const Userinfo01 = ({navigation}: GenericNavigation) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.subContainer}
-          onPress={() => setOptionSelect('not Define')}>
+          onPress={() => setOptionSelect('Not to say')}>
           <Image
             style={styles.selectedImg}
             resizeMode="contain"
@@ -78,9 +90,7 @@ const Userinfo01 = ({navigation}: GenericNavigation) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity
-        style={styles.SignUpbtn}
-        onPress={() => navigation.navigate('Userinfo02')}>
+      <TouchableOpacity style={styles.SignUpbtn} onPress={() => handleGender()}>
         <Text style={styles.SignUpTxt}>Continue</Text>
       </TouchableOpacity>
     </SafeAreaView>

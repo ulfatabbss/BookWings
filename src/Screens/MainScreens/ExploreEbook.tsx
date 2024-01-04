@@ -12,37 +12,8 @@ import {
 import React from 'react';
 import {RF, RFP} from '../../Utilities/Responsive';
 import TopTab from '../../Components/TopTab';
-import {GenericNavigation} from '../../shared/type/interface';
-
-const ListData = [
-  {
-    BookImage: require('../../assets/Images/Homee/FlatList/bg1.png'),
-    name: 'Finance Basics for young women',
-    Rating: '4.5',
-  },
-  {
-    BookImage: require('../../assets/Images/Homee/FlatList/bg1.png'),
-    name: 'Finance Basics for young women',
-    Rating: '4.5',
-  },
-  {
-    BookImage: require('../../assets/Images/Homee/FlatList/bg1.png'),
-    name: 'Finance Basics for young women',
-    Rating: '4.5',
-  },
-  {
-    BookImage: require('../../assets/Images/Homee/FlatList/bg1.png'),
-    name: 'Finance Basics for young women',
-    Rating: '4.5',
-  },
-  {
-    BookImage: require('../../assets/Images/Homee/FlatList/bg1.png'),
-    name: 'Finance Basics for young women',
-    Rating: '4.5',
-  },
-];
-
-const ExploreEbook = ({navigation}: GenericNavigation) => {
+const ExploreEbook = ({navigation, route}) => {
+  const {data} = route.params;
   const ListView = ({
     item,
   }: {
@@ -58,7 +29,7 @@ const ExploreEbook = ({navigation}: GenericNavigation) => {
       <ImageBackground
         style={styles.bookCover}
         resizeMode="cover"
-        source={item.BookImage}>
+        source={{uri: item.image}}>
         <ImageBackground
           style={styles.RatingImage}
           resizeMode="contain"
@@ -84,7 +55,7 @@ const ExploreEbook = ({navigation}: GenericNavigation) => {
         </Text>
         <TouchableOpacity
           style={styles.Readbtn}
-          onPress={() => navigation.navigate('EbookDetail')}>
+          onPress={() => navigation.navigate('EbookDetail', {data: item})}>
           <Text style={styles.btnTxt}>Read More</Text>
           <Image
             style={styles.btnPng}
@@ -104,7 +75,7 @@ const ExploreEbook = ({navigation}: GenericNavigation) => {
             numColumns={2}
             showsVerticalScrollIndicator={false}
             renderItem={ListView}
-            data={ListData}
+            data={data}
           />
         </View>
       </View>

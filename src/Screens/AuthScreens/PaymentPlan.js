@@ -14,11 +14,11 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {RF, RFP} from '../../Utilities/Responsive';
-import {GenericNavigation} from '../../shared/type/interface';
 import {store} from '../../Redux/Store';
 import {setLogin} from '../../Redux/Reducers/userReducer';
-import {Get_All_Plans} from '../../services/AuthServices';
+import {Get_All_Plans, Post_plan} from '../../services/AuthServices';
 import {useSelector} from 'react-redux';
+import {BallIndicator} from 'react-native-indicators';
 
 const PaymentData = [
   {
@@ -59,17 +59,19 @@ const PaymentData = [
   },
 ];
 
-const PaymentPlan = ({navigation}: GenericNavigation) => {
+const PaymentPlan = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const {userToken} = useSelector((state: any) => state.root.user);
+  const {userToken} = useSelector(state => state.root.user);
+  const [plans, setPlans] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(userToken, 'yxeygyugeyueuge');
-
-    const handlePlans = async (values: any) => {
+    const handlePlans = async () => {
+      setLoading(true);
       try {
         const response = await Get_All_Plans(userToken);
-        console.log(response.data);
+        // console.log(response?.data?.plans);
+        setPlans(response?.data?.plans);
       } catch (error) {
         if (error.message === 'Network Error') {
           Alert.alert('⚠️ Check your internet connection and try again .....!');
@@ -77,23 +79,12 @@ const PaymentPlan = ({navigation}: GenericNavigation) => {
           Alert.alert('⚠️ An error occurred. Please try again later.');
         }
       } finally {
-        //   setIsLoading(false);
+        setLoading(false);
       }
     };
     handlePlans();
-    const timer = setTimeout(() => {
-      setModalVisible(false);
-
-      // store.dispatch(setLogin(true));
-    }, 3000); // Adjust the timeout duration (in milliseconds) as needed
-
-    return () => clearTimeout(timer);
-  }, [modalVisible]);
-  const PaymentFlatList = ({
-    item,
-  }: {
-    item: {month: string; Price: String; clr: string; bg: string};
-  }) => (
+  }, []);
+  const PaymentFlatList = ({item}) => (
     <View
       style={{
         height: RF(124),
@@ -114,12 +105,12 @@ const PaymentPlan = ({navigation}: GenericNavigation) => {
         backgroundColor: '#fff',
         marginVertical: RFP(1),
       }}>
-      <View style={[styles.PriceTagView, {backgroundColor: item.bg}]}>
-        <Text style={[styles.MonthTxt, {color: item.clr}]}>{item.month}</Text>
+      <View style={styles.PriceTagView}>
+        <Text style={[styles.MonthTxt, {color: '#009688'}]}>{item.name}</Text>
       </View>
-      <Text style={styles.PriceTxt}>{'$' + item.Price}</Text>
+      <Text style={styles.PriceTxt}>{'$' + item.price}</Text>
       <View style={styles.MainSubmitView}>
-        {item.Price == '0' ? undefined : (
+        {item.price == '0' ? undefined : (
           <View style={styles.InputSubmitView}>
             <TextInput
               style={styles.inputTxt}
@@ -131,18 +122,40 @@ const PaymentPlan = ({navigation}: GenericNavigation) => {
         <TouchableOpacity
           style={[
             styles.TouchableSubmit,
-            {width: item.Price == '0' ? '100%' : '30%'},
+            {width: item.price == '0' ? '100%' : '30%'},
           ]}
-          onPress={() => setModalVisible(!modalVisible)}>
+          onPress={() => handleSubmit()}>
           <Text style={styles.SubmitTxt}>Submit</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-  const handleSubmit = () => {
-    store.dispatch(setLogin(true));
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const obj = '';
+      const response = await Post_plan(userToken, obj);
+      // setModalVisible(!modalVisible)
+      console.log(response?.data, 'vgbhbhbhbhbhhbh');
+      // const timer = setTimeout(() => {
+      //   setModalVisible(false);
+      //   // store.dispatch(setLogin(true));
+      // }, 3000); // Adjust the timeout duration (in milliseconds) as needed
+      // return () => clearTimeout(timer);
+    } catch (error) {
+      if (error.message === 'Network Error') {
+        Alert.alert('⚠️ Check your internet connection and try again .....!');
+      } else {
+        Alert.alert('⚠️ An error occurred. Please try again later.');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
+  if (loading) {
+    return <BallIndicator color={'#3F51B5'} />;
+  }
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#e9e7ed'}}>
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
@@ -176,8 +189,9 @@ const PaymentPlan = ({navigation}: GenericNavigation) => {
         <Text style={styles.RegularTxt}>
           Choose a plan or propose your price for negotiation.
         </Text>
-        <View style={{width: '90%', alignSelf: 'center'}}>
-          <FlatList renderItem={PaymentFlatList} data={PaymentData} />
+        <View
+          style={{width: '90%', alignSelf: 'center', paddingBottom: RF(70)}}>
+          <FlatList renderItem={PaymentFlatList} data={plans} />
         </View>
       </View>
     </SafeAreaView>
@@ -188,7 +202,7 @@ export default PaymentPlan;
 
 const styles = StyleSheet.create({
   container: {
-    height: Dimensions.get('window').height,
+    flex: 1,
     width: '100%',
     backgroundColor: 'rgb(255,255,255)',
   },
@@ -246,13 +260,14 @@ const styles = StyleSheet.create({
   },
   PriceTagView: {
     height: RF(22),
-    padding: RF(3),
+    padding: RF(5),
     alignItems: 'center',
-    borderRadius: RF(10),
+    borderRadius: RF(100),
     justifyContent: 'center',
     backgroundColor: '#e6f5f3',
     margin: RF(10),
-    width: RF(60),
+    width: RFP(15),
+    // backgroundColor: '#009688',
   },
   centeredView: {
     flex: 1,

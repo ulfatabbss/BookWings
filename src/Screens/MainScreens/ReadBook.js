@@ -5,57 +5,35 @@ import {
   Text,
   View,
   Platform,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import Pdf from 'react-native-pdf';
 import {RF} from '../../Utilities/Responsive';
-import {
-  GooglePay,
-  RequestDataType,
-  AllowedCardNetworkType,
-  AllowedCardAuthMethodsType,
-} from 'react-native-google-pay';
+import TopTab from '../../Components/TopTab';
 
-const allowedCardNetworks: AllowedCardNetworkType[] = ['VISA', 'MASTERCARD'];
-const allowedCardAuthMethods: AllowedCardAuthMethodsType[] = [
-  'PAN_ONLY',
-  'CRYPTOGRAM_3DS',
-];
 const ReadBook = ({route}) => {
   const {book} = route.params;
   const source = {
     uri: book,
     cache: true,
   };
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      GooglePay.setEnvironment(GooglePay.ENVIRONMENT_TEST);
-    }
-  }, []);
-  const directRequestData: RequestDataType = {
-    cardPaymentMethod: {
-      tokenizationSpecification: {
-        type: 'DIRECT',
-        publicKey:
-          'BOdoXP+9Aq473SnGwg3JU1aiNpsd9vH2ognq4PtDtlLGa3Kj8TPf+jaQNPyDSkh3JUhiS0KyrrlWhAgNZKHYF2Y=',
-      },
-      allowedCardNetworks,
-      allowedCardAuthMethods,
-    },
-    transaction: {
-      totalPrice: '123',
-      totalPriceStatus: 'FINAL',
-      currencyCode: 'RUB',
-    },
-    merchantName: 'Example Merchant',
-  };
   return (
     <View style={styles.container}>
-      <View style={{height: RF(60), backgroundColor: 'blue'}}></View>
+      <TopTab name={'Book Detail'} back="0" Edit="false" />
       <Pdf
         enablePaging={true}
         source={source}
         trustAllCerts={false}
+        // singlePage={true}
+        maxScale={3.0}
+        spacing={20}
+        horizontal
+        // page={2}
+        renderActivityIndicator={() => (
+          <ActivityIndicator color={'#3F51B5'} size={'large'} />
+        )}
+        fitWidth={true}
         onLoadComplete={(numberOfPages, filePath) => {
           console.log(`Number of pages: ${numberOfPages}`);
         }}
@@ -79,9 +57,11 @@ export default ReadBook;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   pdf: {
-    width: Dimensions.get('window').width,
+    width: Dimensions.get('window').width - RF(20),
     height: Dimensions.get('window').height - RF(100),
   },
 });
